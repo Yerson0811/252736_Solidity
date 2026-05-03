@@ -21,4 +21,7 @@ contract Intro{
         return  amount;
     }
 
+    function getSum(uint256 _a, uint256 _b) public pure returns (uint256){
+        return _a + _b;
+    }
 }

@@ -6,11 +6,11 @@ contract Events{
 
     uint256 private amount =10;
     
-    event setAmountValue(address account, uint256 newValue); //event declaration
+    event setAmountValue(address account, uint256 newValue);
 
     function setAmount(uint256 _amount) public{
         amount = _amount;
-        emit setAmountValue(msg.sender, _amount); //event emitted
+        emit setAmountValue(msg.sender, _amount);
     }
 
     function getAmount() public view returns (uint256){
