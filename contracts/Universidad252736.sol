@@ -13,10 +13,28 @@ contract Biblioteca252736 {
 
     Libro[] public libros;
 
+    address public dirContrato;
+
     constructor() {
+        dirContrato = address(this);
         console.log(
             "Ejecutado por: 252736 - Yerson Enrique Diaz Paredes"
         );
+    }
+
+    function agregarElemento(
+        uint _id,
+        string memory _titulo,
+        uint _paginas
+    ) public {
+
+        libros.push(
+            Libro(_id, _titulo, _paginas)
+        );
+    }
+
+    function contarElementos() public view returns(uint) {
+        return libros.length;
     }
 
 }
