@@ -45,4 +45,17 @@ contract Biblioteca252736 {
         return libros.length;
     }
 
+    function inactivarElemento(uint _posicion) public ejecutadoPor {
+        require(_posicion < libros.length,"Posicion invalida");
+        libros[_posicion].estado = false;
+    }
+
+    function mostrarActivos()public view ejecutadoPor{
+        for(uint i = 0; i < libros.length; i++) {
+            if(libros[i].estado == true) {
+                console.log("Libro activo", libros[i].id, libros[i].titulo);
+            }
+        }
+    }
+
 }
