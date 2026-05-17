@@ -22,9 +22,7 @@ contract Biblioteca252736 {
         );
     }
 
-    function agregarElemento(uint _id, string memory _titulo, uint _paginas
-    ) public {
-
+    function agregarElemento(uint _id, string memory _titulo, uint _paginas) public {
         libros.push(
             Libro(_id, _titulo, _paginas)
         );
