@@ -3,17 +3,21 @@
 pragma solidity >=0.8.2 <0.9.0;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
+//Buy with BFT
 contract BallenitaNFT is ERC721,  Ownable{
 
     uint256 private _counterId = 1;
 
-    constructor ()
+    IERC20 public tokenBFT;
+
+    constructor (address _addressTokenNFT)
         ERC721("Ballenita Poster Token - NFT", "BPT")
         Ownable(msg.sender)
     {
-
+        tokenBFT = IERC20(_addressTokenNFT);
     }
 
     struct Poster {
@@ -54,8 +58,17 @@ contract BallenitaNFT is ERC721,  Ownable{
 
     function buyPoster (uint256 tokenId) public payable {
         require(ownerOf(tokenId) == address(this), "El poster no esta disponible");
+        require(tokenBFT.balanceOf(msg.sender) > 0, "Solo disponible para socios");
         Poster memory poster = posters[tokenId];
         require(msg.value >= poster.price, "ETH Insuficiente ");
+        _transfer(address(this), msg.sender, tokenId);
+    }
+
+    function buyPosterWithBFT (uint256 tokenId) public payable {
+        require(ownerOf(tokenId) == address(this), "El poster no esta disponible");
+        Poster memory poster = posters[tokenId];
+        require(tokenBFT.balanceOf(msg.sender) >= poster.price, "BFT Insuficiente ");
+        tokenBFT.transferFrom(msg.sender, owner(), poster.price);
         _transfer(address(this), msg.sender, tokenId);
     }
 

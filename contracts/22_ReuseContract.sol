@@ -6,8 +6,8 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract Calculator{
     function calculateFinalGrade(uint256 teo, uint256 pra, uint256 lab) public pure returns(uint){
-        //uint256 FG = (teo * 30 + pra * 30 + lab * 40) / 100;
-        uint256 FG = (teo * 10 + pra * 10 + lab * 80) / 100;
+        uint256 FG = (teo * 30 + pra * 30 + lab * 40) / 100;
+        //uint256 FG = (teo * 10 + pra * 10 + lab * 80) / 100;
         return FG;
     }
 }
@@ -31,6 +31,11 @@ contract RecordGrades is Ownable{
         uint256 FG = calculator.calculateFinalGrade(_teo, _pra, _lab);
         studentGrades[_dirStudent] = FG;
     }
+
+    function testCalculator() public view returns(uint256) {
+    Calculator calculator = Calculator(addressCalculator);
+    return calculator.calculateFinalGrade(10, 10, 10);
+}
 
     function viewGrade() public view returns(uint256){
         return studentGrades[msg.sender];
